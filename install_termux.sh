@@ -1,30 +1,64 @@
 #!/bin/bash
-# DDoS Toolkit - Termux Kurulum Scripti
+# Termux Installation Script for DDoS Toolkit
 
-echo "🚀 DDoS Toolkit - Termux Kurulumu"
+echo "🚀 DDoS Toolkit - Termux Installer"
 echo "=================================="
 
-# Sistem güncelleme
-echo "📦 Sistem güncelleniyor..."
-pkg update && pkg upgrade -y
+# Update packages
+echo "📦 Updating Termux packages..."
+pkg update -y && pkg upgrade -y
 
-# Gerekli paketler
-echo "📦 Gerekli paketler kuruluyor..."
-pkg install -y git dotnet-sdk nodejs curl wget
+# Install required packages
+echo "🔧 Installing dependencies..."
+pkg install -y git curl wget unzip nano
+pkg install -y clang cmake make
+pkg install -y openssl libcurl
+pkg install -y dotnet
 
-# .NET kontrol
-echo "🔍 .NET kontrol ediliyor..."
-dotnet --version
+# Create directory
+echo "📁 Creating application directory..."
+mkdir -p ~/DDoSToolkit
+cd ~/DDoSToolkit
 
-# Node.js kontrol
-echo "🔍 Node.js kontrol ediliyor..."
-node --version
+# Download .NET if not available
+if ! command -v dotnet &> /dev/null; then
+    echo "📦 Installing .NET SDK..."
+    wget https://download.visualstudio.microsoft.com/download/pr/8c4b4b7c-3b2c-4b2c-9c2c-3b2c4b2c9c2c/dotnet-sdk-7.0.404-linux-x64.tar.gz
+    mkdir -p ~/.dotnet
+    tar xzf dotnet-sdk-7.0.404-linux-x64.tar.gz -C ~/.dotnet
+    echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
+    echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
+    export DOTNET_ROOT=$HOME/.dotnet
+    export PATH=$PATH:$HOME/.dotnet
+fi
 
-echo "✅ Kurulum tamamlandı!"
+# Create launcher script
+echo "🚀 Creating launcher script..."
+cat > ~/DDoSToolkit/ddos.sh << 'EOF'
+#!/bin/bash
+cd ~/DDoSToolkit
+echo "🚀 Starting DDoS Toolkit..."
+dotnet run
+EOF
+
+chmod +x ~/DDoSToolkit/ddos.sh
+
+# Create desktop shortcut
+echo "📱 Creating desktop shortcut..."
+mkdir -p ~/Desktop
+cat > ~/Desktop/DDoSToolkit << 'EOF'
+#!/bin/bash
+cd ~/DDoSToolkit
+./ddos.sh
+EOF
+
+chmod +x ~/Desktop/DDoSToolkit
+
+echo "✅ Installation complete!"
 echo ""
-echo "🚀 Çalıştırmak için:"
-echo "cd DDoS-Toolkit"
-echo "dotnet run"
+echo "🚀 To run the toolkit:"
+echo "   Method 1: ~/DDoSToolkit/ddos.sh"
+echo "   Method 2: ~/Desktop/DDoSToolkit"
+echo "   Method 3: cd ~/DDoSToolkit && dotnet run"
 echo ""
-echo "🌐 Sunucu için:"
-echo "node server.js"
+echo "⚡ DDoS Toolkit is ready to use!"
